@@ -1,0 +1,25 @@
+name: My first Github Actions
+
+on: [push]
+
+jobs:
+  build:
+    environment:
+    name: github pages
+    url: ${{steps.deployment.outputs.page_url}}
+    runs-on: ubuntu-latest
+
+    steps:
+    -name: checkout
+    -uses: actions/checkout@v4
+    -name: setups pages
+    -uses: actions/configure-pages@v5
+    -name: Upload Artifact
+    -uses: actions/upload-pages-artifact@v3
+    with:
+      # upload entire repository
+    path: '.'
+    -name: deploy to github pages
+    id: deployment
+    uses: actions/deploy-pages@v4
+
